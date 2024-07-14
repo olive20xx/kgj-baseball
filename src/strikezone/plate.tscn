@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctyj54x7gp68m"]
+
+[ext_resource type="Script" path="res://src/strikezone/plate.gd" id="1_jujah"]
+[ext_resource type="Texture2D" uid="uid://bijhgqnu2wpmh" path="res://assets/plate-left.png" id="1_s1ccn"]
+[ext_resource type="Texture2D" uid="uid://cbad4r4cdonlt" path="res://assets/plate-right.png" id="3_wdutf"]
+
+[node name="HomePlate" type="Node2D"]
+script = ExtResource("1_jujah")
+
+[node name="Left" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-95, 3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_s1ccn")
+offset = Vector2(78, 2.08165e-12)
+
+[node name="Right" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(95, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_wdutf")
+offset = Vector2(-68, 24)

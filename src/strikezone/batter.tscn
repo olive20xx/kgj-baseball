@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbhvugvn74fd1"]
+
+[ext_resource type="Texture2D" uid="uid://cnbfud07h15p2" path="res://assets/chest.png" id="1_sffmm"]
+[ext_resource type="Script" path="res://src/strikezone/batter.gd" id="1_vyq80"]
+[ext_resource type="Texture2D" uid="uid://4iygnm3qhwv1" path="res://assets/knee.png" id="2_so0vb"]
+
+[node name="Batter" type="Node2D"]
+script = ExtResource("1_vyq80")
+
+[node name="Chest" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-35, -100)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_sffmm")
+offset = Vector2(-36, -52)
+
+[node name="Knee" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-49, 80)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_so0vb")
+offset = Vector2(102, 36)

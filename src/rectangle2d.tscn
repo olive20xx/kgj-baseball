@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://yor1y7nx5g3c"]
+
+[ext_resource type="Script" path="res://src/rectangle2d.gd" id="1_a7ff4"]
+[ext_resource type="PackedScene" uid="uid://61phvxak5qfu" path="res://src/components/blink.tscn" id="2_vl6st"]
+
+[node name="Rectangle" type="Node2D"]
+script = ExtResource("1_a7ff4")
+rect = Rect2(100, 100, 100, 100)
+
+[node name="Blink" parent="." instance=ExtResource("2_vl6st")]
+is_blinking = false

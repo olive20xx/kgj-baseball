@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cl6l7iv1huj7p"]
+
+[ext_resource type="Texture2D" uid="uid://ct3pydrseekvb" path="res://assets/crosshair.png" id="1_7r210"]
+[ext_resource type="PackedScene" uid="uid://61phvxak5qfu" path="res://src/components/blink.tscn" id="2_03u44"]
+[ext_resource type="Script" path="res://src/cursors/crosshair.gd" id="2_j44ip"]
+[ext_resource type="PackedScene" uid="uid://kx0s52o0elcw" path="res://src/components/move.tscn" id="4_yn8c4"]
+
+[node name="PitcherCrosshair" type="Sprite2D"]
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("1_7r210")
+offset = Vector2(17, -62)
+script = ExtResource("2_j44ip")
+
+[node name="Blink" parent="." instance=ExtResource("2_03u44")]
+
+[node name="Move" parent="." instance=ExtResource("4_yn8c4")]
+_left = "pitcher_left"
+_right = "pitcher_right"
+_up = "pitcher_up"
+_down = "pitcher_down"
