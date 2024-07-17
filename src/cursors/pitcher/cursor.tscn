@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://cl6l7iv1huj7p"]
+
+[ext_resource type="Texture2D" uid="uid://ct3pydrseekvb" path="res://assets/crosshair.png" id="1_7r210"]
+[ext_resource type="PackedScene" uid="uid://61phvxak5qfu" path="res://src/components/blink.tscn" id="2_03u44"]
+[ext_resource type="Script" path="res://src/cursors/pitcher/pitcher_cursor.gd" id="2_j44ip"]
+[ext_resource type="PackedScene" uid="uid://kx0s52o0elcw" path="res://src/components/move.tscn" id="4_yn8c4"]
+[ext_resource type="Script" path="res://src/cursors/pitcher/square.gd" id="5_hnxxj"]
+[ext_resource type="Texture2D" uid="uid://dimje2b5p887e" path="res://assets/square-topleft.png" id="5_m7kyv"]
+[ext_resource type="Texture2D" uid="uid://c31vod3rq1p8c" path="res://assets/square-topright.png" id="6_uxmbs"]
+[ext_resource type="Texture2D" uid="uid://cmvornvqjptgl" path="res://assets/square-botleft.png" id="7_kujv4"]
+[ext_resource type="Texture2D" uid="uid://pj42bcjxxrc2" path="res://assets/square-botright.png" id="8_wwxou"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rlqu2"]
+size = Vector2(58.935, 48.019)
+
+[node name="PitcherCursor" type="Node2D"]
+script = ExtResource("2_j44ip")
+
+[node name="Crosshair" type="Sprite2D" parent="."]
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("1_7r210")
+offset = Vector2(17, -62)
+
+[node name="Blink" parent="Crosshair" instance=ExtResource("2_03u44")]
+blinking_on_spawn = true
+
+[node name="Move" parent="." instance=ExtResource("4_yn8c4")]
+_left = "pitcher_left"
+_right = "pitcher_right"
+_up = "pitcher_up"
+_down = "pitcher_down"
+
+[node name="Square" type="Node2D" parent="."]
+scale = Vector2(0.13, 0.13)
+script = ExtResource("5_hnxxj")
+
+[node name="TopLeft" type="Sprite2D" parent="Square"]
+position = Vector2(-184.615, -192.308)
+texture = ExtResource("5_m7kyv")
+
+[node name="TopRight" type="Sprite2D" parent="Square"]
+position = Vector2(200, -205)
+texture = ExtResource("6_uxmbs")
+
+[node name="BotLeft" type="Sprite2D" parent="Square"]
+position = Vector2(-191, 153.846)
+texture = ExtResource("7_kujv4")
+
+[node name="BotRight" type="Sprite2D" parent="Square"]
+position = Vector2(213, 138.462)
+texture = ExtResource("8_wwxou")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.25, -6.9)
+shape = SubResource("RectangleShape2D_rlqu2")
