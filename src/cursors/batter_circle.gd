@@ -1,7 +1,7 @@
 class_name BatterCircle
 extends Node2D
 
-signal swung(center: Vector2, radius: Vector2)
+signal swung(shape: CollisionShape2D)
 
 const dot_scene = preload("res://src/cursors/dot.tscn")
 
@@ -33,11 +33,13 @@ var red := Color("ff3014")
 var tween: Tween
 
 @onready var dots: Node2D = $Dots
+@onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
 @onready var timer: Timer = $Timer
 @onready var move: Move = $Move
 
 
 func _ready() -> void:
+	collision_shape.shape.radius = _size.radius * spin_scale
 	move.speed = 180.0
 	render()
 
@@ -51,13 +53,13 @@ func swing() -> void:
 	accept_input = false
 	var swing := animate_swing()
 	await swing.finished
-	swung.emit(position, _size.radius)
+	swung.emit(collision_shape)
 	
 	await get_tree().create_timer(reset_time).timeout
 	var reset := animate_reset()
 	await reset.finished
 	accept_input = true
-	
+
 
 func animate_swing() -> Tween:
 	if tween:
@@ -84,16 +86,19 @@ func animate_reset() -> Tween:
 	
 	return tween
 
-
+# TODO: needs work
 func render() -> void:
 	# get circumference
 	var circumf := 2 * PI * _size.radius as int
+	
 	# count dots + gap
 	var dot: Dot = dot_scene.instantiate()
 	dot.position.y = _size.radius
 	var length := dot.diameter + _size.gap as float
 	var dot_count := floori(circumf / length)
+	
 	# evenly space dots around circle
+	# this part seems a lil incorrect...
 	var degree_spacing := floori(360 / dot_count)
 	
 	for i in dot_count:

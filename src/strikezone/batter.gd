@@ -12,8 +12,3 @@ var dist: float:
 
 @onready var chest: Sprite2D = %Chest
 @onready var knee: Sprite2D = %Knee
-
-func _ready() -> void:
-	print('top ', top, ' bot ', bot)
-	print('batter distance')
-	print(dist)

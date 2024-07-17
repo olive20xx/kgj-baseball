@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1tjdm2x8xsnh"]
+[gd_scene load_steps=4 format=3 uid="uid://d1tjdm2x8xsnh"]
 
 [ext_resource type="Script" path="res://src/cursors/batter_circle.gd" id="1_d6yj1"]
 [ext_resource type="PackedScene" uid="uid://kx0s52o0elcw" path="res://src/components/move.tscn" id="2_xu6x6"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jslsu"]
+
 [node name="BatterCircle" type="Node2D"]
-position = Vector2(275, 172)
 script = ExtResource("1_d6yj1")
 
 [node name="Move" parent="." instance=ExtResource("2_xu6x6")]
@@ -15,6 +16,11 @@ _down = "batter_down"
 
 [node name="Dots" type="Node2D" parent="."]
 modulate = Color(1, 0.952941, 0.0784314, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_jslsu")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

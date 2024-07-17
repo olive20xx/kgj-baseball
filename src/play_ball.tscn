@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://djqse2gmeqjnq"]
+[gd_scene load_steps=8 format=3 uid="uid://djqse2gmeqjnq"]
 
 [ext_resource type="Script" path="res://src/play_ball.gd" id="1_hvvun"]
 [ext_resource type="Texture2D" uid="uid://6p4k3sgjmrkc" path="res://assets/stadiumpixel.png" id="2_aobu0"]
 [ext_resource type="PackedScene" uid="uid://ds23careiux1c" path="res://src/strikezone/zone.tscn" id="3_xxn3o"]
-[ext_resource type="PackedScene" uid="uid://cl6l7iv1huj7p" path="res://src/cursors/crosshair.tscn" id="4_ryymv"]
+[ext_resource type="PackedScene" uid="uid://cl6l7iv1huj7p" path="res://src/cursors/pitcher/cursor.tscn" id="4_ryymv"]
 [ext_resource type="PackedScene" uid="uid://d1tjdm2x8xsnh" path="res://src/cursors/batter_circle.tscn" id="5_xdh6u"]
+[ext_resource type="Script" path="res://src/hit_fairy.gd" id="6_6nynj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctv8n"]
+bg_color = Color(0.555112, 0.00766065, 0.528903, 1)
 
 [node name="PlayBall" type="Node2D"]
 script = ExtResource("1_hvvun")
@@ -29,3 +33,33 @@ position = Vector2(643, 481)
 [node name="BatterCircle" parent="." instance=ExtResource("5_xdh6u")]
 unique_name_in_owner = true
 position = Vector2(300, 445)
+size = 3
+
+[node name="HitFairy" type="Node2D" parent="."]
+script = ExtResource("6_6nynj")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.0
+offset_top = 176.0
+offset_right = 90.0
+offset_bottom = 227.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ctv8n")
+
+[node name="Label" type="Label" parent="UI/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+justification_flags = 162
+uppercase = true

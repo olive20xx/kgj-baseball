@@ -1,16 +1,17 @@
 extends Node2D
 
+
 @onready var center_pos: Vector2 = $CenterMarker.position
-@onready var pitcher_cursor: Sprite2D = %PitcherCursor
+@onready var pitcher_cursor: PitcherCursor = %PitcherCursor
 @onready var strike_zone: StrikeZone = %StrikeZone
 @onready var batter_circle: BatterCircle = %BatterCircle
+@onready var hit_fairy: HitFairy = $HitFairy
+@onready var label: Label = $UI/Panel/Label
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	pitcher_cursor.position = center_pos
 	batter_circle.position = center_pos
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	pitcher_cursor.arrived.connect(func(shape): hit_fairy.rect_shape = shape)
+	batter_circle.swung.connect(func(shape): hit_fairy.circ_shape = shape)
+	hit_fairy.hit_percentage.connect(func(pc): label.text = "HIT: " + str(pc) + "%")
