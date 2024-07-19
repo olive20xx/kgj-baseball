@@ -1,5 +1,14 @@
 extends Node2D
 
+## TODO:
+# 1 - give pitches an arrival time
+#	   - animate the strikezone square
+# 2 - let pitches move after the throw
+# 3 - make the sequence of play
+# 4 - create 4 different pitches
+# 5 - strike zone fun
+#	   - random shapes
+#      - moving strike zone!
 
 @onready var center_pos: Vector2 = $CenterMarker.position
 @onready var pitcher_cursor: PitcherCursor = %PitcherCursor

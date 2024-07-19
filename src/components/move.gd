@@ -12,11 +12,17 @@ extends Node
 @export var _down: String
 
 @onready var parent: Node2D = get_parent()
+@onready var timer: Timer = $Timer
 
+var tween: Tween:
+	set(t):
+		if tween: tween.kill()
+		tween = t
 
 func _ready() -> void:
 	assert(parent.get("accept_input") != null)
 	assert_multiple([_left, _right, _up, _down])
+
 
 func _process(delta: float) -> void:
 	if parent.accept_input:
@@ -33,3 +39,11 @@ func move(delta) -> void:
 func assert_multiple(variables: Array) -> void:
 	for v in variables:
 		assert(v)
+
+
+func set_limited_move(initial_speed: float, time: float) -> Tween:
+	speed = initial_speed
+	tween = create_tween()
+	tween.tween_property(self, "speed", 0, time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
+	tween.play()
+	return tween

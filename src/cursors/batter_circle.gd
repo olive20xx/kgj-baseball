@@ -51,8 +51,8 @@ func _input(event: InputEvent) -> void:
 
 func swing() -> void:
 	accept_input = false
-	var swing := animate_swing()
-	await swing.finished
+	var swing_anim := animate_swing()
+	await swing_anim.finished
 	swung.emit(collision_shape)
 	
 	await get_tree().create_timer(reset_time).timeout
@@ -65,7 +65,7 @@ func animate_swing() -> Tween:
 	if tween:
 		tween.kill()
 	
-	var tween := create_tween().set_parallel().set_ease(Tween.EASE_OUT)
+	tween = create_tween().set_parallel().set_ease(Tween.EASE_OUT)
 	tween.bind_node(dots)
 	tween.tween_property(dots, "rotation_degrees", spin_deg, spin_dur).as_relative()
 	tween.tween_property(dots, "scale", Vector2.ONE * spin_scale, spin_dur)

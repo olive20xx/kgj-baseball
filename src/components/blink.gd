@@ -12,10 +12,12 @@ var tween: Tween
 
 func _ready() -> void:
 	if blinking_on_spawn and parent:
-		start_blink()
+		start()
 
 
-func start_blink():
+func start():
+	if tween: tween.kill()
+
 	tween = create_tween()
 	tween.bind_node(self)
 	tween.set_loops()
@@ -25,5 +27,5 @@ func start_blink():
 	tween.tween_interval(vis_dur)
 	tween.play()
 
-func stop_blink() -> void:
+func stop() -> void:
 	tween.kill()

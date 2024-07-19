@@ -8,4 +8,3 @@ script = ExtResource("1_a7ff4")
 rect = Rect2(100, 100, 100, 100)
 
 [node name="Blink" parent="." instance=ExtResource("2_vl6st")]
-is_blinking = false

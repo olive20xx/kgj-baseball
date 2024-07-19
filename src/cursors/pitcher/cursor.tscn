@@ -30,6 +30,8 @@ _right = "pitcher_right"
 _up = "pitcher_up"
 _down = "pitcher_down"
 
+[node name="Timer" type="Timer" parent="Move"]
+
 [node name="Square" type="Node2D" parent="."]
 scale = Vector2(0.13, 0.13)
 script = ExtResource("5_hnxxj")
