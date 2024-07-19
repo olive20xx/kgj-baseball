@@ -9,9 +9,10 @@ var size: Vector2:
 
 @onready var home_plate: HomePlate = $HomePlate
 @onready var batter: Batter = $Batter
+@onready var rect := Rect2(topleft, size)
 
 
-func _ready() -> void:
-	var box := Rectangle2D.new()
-	box.rect = Rect2(topleft, size)
-	add_child(box)
+# func _ready() -> void:
+# 	var box := Rectangle2D.new()
+# 	box.rect = rect
+# 	add_child(box)

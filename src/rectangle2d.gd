@@ -6,6 +6,18 @@ extends Node2D
 @export var filled := false
 @export var border_width := 4
 
+@onready var blink: Blink = $Blink
 
 func _draw() -> void:
 	draw_rect(rect, color, filled, border_width)
+
+
+func start_blink(blink_dur: float, invis_dur: float, vis_dur: float) -> void:
+	blink.blink_dur = blink_dur
+	blink.invis_dur = invis_dur
+	blink.vis_dur = vis_dur
+	blink.start()
+
+
+func stop_blink() -> void:
+	blink.stop()

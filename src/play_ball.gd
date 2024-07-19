@@ -1,9 +1,8 @@
 extends Node2D
 
 ## TODO:
-# 1 - give pitches an arrival time
-#	   - animate the strikezone square
-# 2 - let pitches move after the throw
+# 1 - animate the strikezone square
+# 2 - track swing timing
 # 3 - make the sequence of play
 # 4 - create 4 different pitches
 # 5 - strike zone fun
@@ -40,3 +39,5 @@ func reset() -> void:
 	pitcher_cursor.position = center_pos
 	batter_circle.position = center_pos
 	pitcher_cursor.reset()
+	pitcher_cursor.strike_zone_rect = strike_zone.rect
+	pitcher_cursor.strike_zone_pos = strike_zone.position

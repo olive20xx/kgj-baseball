@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cl6l7iv1huj7p"]
+[gd_scene load_steps=12 format=3 uid="uid://cl6l7iv1huj7p"]
 
 [ext_resource type="Texture2D" uid="uid://ct3pydrseekvb" path="res://assets/crosshair.png" id="1_7r210"]
 [ext_resource type="PackedScene" uid="uid://61phvxak5qfu" path="res://src/components/blink.tscn" id="2_03u44"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c31vod3rq1p8c" path="res://assets/square-topright.png" id="6_uxmbs"]
 [ext_resource type="Texture2D" uid="uid://cmvornvqjptgl" path="res://assets/square-botleft.png" id="7_kujv4"]
 [ext_resource type="Texture2D" uid="uid://pj42bcjxxrc2" path="res://assets/square-botright.png" id="8_wwxou"]
+[ext_resource type="PackedScene" uid="uid://yor1y7nx5g3c" path="res://src/rectangle2d.tscn" id="10_vamuj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rlqu2"]
 size = Vector2(58.935, 48.019)
@@ -55,3 +56,6 @@ texture = ExtResource("8_wwxou")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(2.25, -6.9)
 shape = SubResource("RectangleShape2D_rlqu2")
+
+[node name="Rectangle" parent="." instance=ExtResource("10_vamuj")]
+visible = false
