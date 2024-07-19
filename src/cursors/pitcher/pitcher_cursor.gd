@@ -2,12 +2,11 @@ class_name PitcherCursor
 extends Node2D
 
 signal arrived(shape: CollisionShape2D)
-signal arrival_start
+signal arrival_start(time: float)
 signal pitching
 
 var accept_input := true
 
-@onready var arrival_rect: Rectangle2D = $Rectangle
 @onready var move: Move = $Move
 @onready var pitcher_square: PitcherSquare = $Square
 @onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
@@ -39,7 +38,7 @@ func pitch(drift_speed: float, time_to_arrive: float) -> void:
 	crosshair.modulate.a = 1.0
 	await get_tree().create_timer(0.5).timeout
 	# narrow square
-	arrival_start.emit()
+	arrival_start.emit(time_to_arrive)
 	crosshair.modulate.a = 0.0
 	var time_to_tight := 0.5
 	var tween := pitcher_square.tighten_it_up_there_boys(time_to_tight)

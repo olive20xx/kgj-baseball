@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://pj42bcjxxrc2" path="res://assets/square-botright.png" id="8_wwxou"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rlqu2"]
-size = Vector2(58.935, 48.019)
+size = Vector2(59, 48)
 
 [node name="PitcherCursor" type="Node2D"]
 script = ExtResource("2_j44ip")
@@ -53,5 +53,5 @@ texture = ExtResource("8_wwxou")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(2.25, -6.9)
+position = Vector2(2.25, -7)
 shape = SubResource("RectangleShape2D_rlqu2")
