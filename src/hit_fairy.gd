@@ -4,22 +4,26 @@ extends Node2D
 signal hit_percentage(value: int)
 
 # TODO: I think you just need the global position and shape.radius
-var circ_shape: CollisionShape2D:
-	set(shape):
-		circ_shape = shape
-		position = circ_shape.global_position
-		if rect_shape: get_overlap()
+var circ_shape: CollisionShape2D
 # TODO: I think you just need the global position and Rect2 (or position + size)
-var rect_shape: CollisionShape2D:
-	set(shape):
-		rect_shape = shape
-		if circ_shape: get_overlap()
+var rect_shape: CollisionShape2D
 var overlap: PackedVector2Array = []
+
+
+func assign_rect(shape: CollisionShape2D) -> void:
+	rect_shape = shape
+	if circ_shape: get_overlap()
+
+func assign_circ(shape: CollisionShape2D) -> void:
+	circ_shape = shape
+	position = circ_shape.global_position
+	if rect_shape: get_overlap()
 
 
 func get_overlap() -> void:
 	if not circ_shape or not rect_shape:
 		print("hit fairy missing a shape")
+		print('circ: ', !!circ_shape, ' | rect: ', !!rect_shape)
 		return
 
 	# GlobalPosition (from center, absolute) + Rect2D.position (top-left, relative)
@@ -49,21 +53,18 @@ func calculate_hit_percentage() -> int:
 		total = rect_area
 	else:
 		total = circ_area
-	#total := rect_shape.shape.get_rect().get_area()
-	
 	
 	var hit := calculate_area(overlap)
 	
 	return roundi(hit / total * 100)
 
 
-func clear() -> void:
+func reset() -> void:
+	circ_shape = null
+	rect_shape = null
 	overlap = []
 	queue_redraw()
 
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"): clear()
 
 func _draw() -> void:
 	if overlap:

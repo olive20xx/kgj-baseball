@@ -10,17 +10,33 @@ extends Node2D
 #	   - random shapes
 #      - moving strike zone!
 
+var reset_time := 2.0
+
 @onready var center_pos: Vector2 = $CenterMarker.position
 @onready var pitcher_cursor: PitcherCursor = %PitcherCursor
 @onready var strike_zone: StrikeZone = %StrikeZone
 @onready var batter_circle: BatterCircle = %BatterCircle
 @onready var hit_fairy: HitFairy = $HitFairy
 @onready var label: Label = $UI/Panel/Label
+@onready var reset_timer: Timer = $ResetTimer
 
 
 func _ready() -> void:
+	reset()
+	pitcher_cursor.arrived.connect(hit_fairy.assign_rect)
+	batter_circle.swung.connect(hit_fairy.assign_circ)
+	hit_fairy.hit_percentage.connect(_on_pitch_complete)
+
+
+func _on_pitch_complete(pc: float) -> void:
+	label.text = "HIT: " + str(pc) + "%"
+	reset_timer.start(reset_time)
+	await reset_timer.timeout
+	reset()
+
+
+func reset() -> void:
+	hit_fairy.reset()
 	pitcher_cursor.position = center_pos
 	batter_circle.position = center_pos
-	pitcher_cursor.arrived.connect(func(shape): hit_fairy.rect_shape = shape)
-	batter_circle.swung.connect(func(shape): hit_fairy.circ_shape = shape)
-	hit_fairy.hit_percentage.connect(func(pc): label.text = "HIT: " + str(pc) + "%")
+	pitcher_cursor.reset()

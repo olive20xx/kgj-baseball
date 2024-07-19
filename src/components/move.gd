@@ -1,9 +1,9 @@
 class_name Move
 extends Node
 
-#TODO: parameterize the input map
 
-@export var speed := 200.0
+const DEFAULT_SPEED = 200.0
+@export var speed := DEFAULT_SPEED
 
 @export_category("InputMap")
 @export var _left: String
@@ -47,3 +47,7 @@ func set_limited_move(initial_speed: float, time: float) -> Tween:
 	tween.tween_property(self, "speed", 0, time).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART)
 	tween.play()
 	return tween
+
+
+func reset() -> void:
+	speed = DEFAULT_SPEED

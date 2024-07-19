@@ -9,6 +9,8 @@ const dist_to_tight = 120.0
 @onready var bot_left: Sprite2D = $BotLeft
 @onready var bot_right: Sprite2D = $BotRight
 
+@onready var original_positions: Array[Vector2]
+
 var tween: Tween:
 	set(t):
 		if tween: tween.kill()
@@ -16,7 +18,9 @@ var tween: Tween:
 
 
 func _ready() -> void:
-	modulate.a = 0
+	for sprite in get_children():
+		original_positions.append(sprite.position)
+	reset()
 
 
 func fade_in(time: float) -> Tween:
@@ -35,3 +39,10 @@ func tighten_it_up_there_boys(time: float) -> Tween:
 	tween.tween_property(bot_right, "position", Vector2.from_angle(-3 * rads) * dist_to_tight, time).as_relative()
 	tween.play()
 	return tween
+
+
+func reset() -> void:
+	show()
+	modulate.a = 0
+	for i in original_positions.size():
+		get_child(i).position = original_positions[i]

@@ -11,8 +11,7 @@ var tween: Tween
 
 
 func _ready() -> void:
-	if blinking_on_spawn and parent:
-		start()
+	reset()
 
 
 func start():
@@ -29,3 +28,9 @@ func start():
 
 func stop() -> void:
 	tween.kill()
+
+
+func reset() -> void:
+	parent.modulate.a = 1.0
+	if blinking_on_spawn and parent:
+		start()

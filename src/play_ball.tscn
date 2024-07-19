@@ -13,6 +13,8 @@ bg_color = Color(0.555112, 0.00766065, 0.528903, 1)
 [node name="PlayBall" type="Node2D"]
 script = ExtResource("1_hvvun")
 
+[node name="ResetTimer" type="Timer" parent="."]
+
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0.4)
 size_flags_horizontal = 4
