@@ -12,7 +12,7 @@ extends Node
 @export var _down: String
 
 @onready var parent: Node2D = get_parent()
-@onready var timer: Timer = $Timer
+
 
 var tween: Tween:
 	set(t):
