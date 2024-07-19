@@ -1,6 +1,8 @@
 class_name Rectangle2D
 extends Node2D
 
+var animating := false
+
 @export var rect: Rect2
 @export var color: Color = Color.LAVENDER
 @export var filled := false
@@ -8,8 +10,14 @@ extends Node2D
 
 @onready var blink: Blink = $Blink
 
+
 func _draw() -> void:
 	draw_rect(rect, color, filled, border_width)
+
+
+func _process(_delta: float) -> void:
+	if animating:
+		queue_redraw()
 
 
 func start_blink(blink_dur: float, invis_dur: float, vis_dur: float) -> void:

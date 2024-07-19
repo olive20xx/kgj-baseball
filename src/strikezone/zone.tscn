@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds23careiux1c"]
+[gd_scene load_steps=5 format=3 uid="uid://ds23careiux1c"]
 
 [ext_resource type="Script" path="res://src/strikezone/zone.gd" id="1_mekao"]
 [ext_resource type="PackedScene" uid="uid://ctyj54x7gp68m" path="res://src/strikezone/plate.tscn" id="2_mfhfj"]
 [ext_resource type="PackedScene" uid="uid://cbhvugvn74fd1" path="res://src/strikezone/batter.tscn" id="3_bj2fg"]
+[ext_resource type="PackedScene" uid="uid://yor1y7nx5g3c" path="res://src/rectangle2d.tscn" id="4_77gto"]
 
 [node name="StrikeZone" type="Node2D"]
 script = ExtResource("1_mekao")
@@ -12,3 +13,6 @@ position = Vector2(0, 194)
 
 [node name="Batter" parent="." instance=ExtResource("3_bj2fg")]
 position = Vector2(268, 0)
+
+[node name="Rectangle" parent="." instance=ExtResource("4_77gto")]
+visible = false

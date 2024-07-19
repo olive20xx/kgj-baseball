@@ -10,6 +10,7 @@ const dist_to_tight = 120.0
 @onready var bot_right: Sprite2D = $BotRight
 
 @onready var original_positions: Array[Vector2]
+@onready var tight_positions: Array[Vector2]
 
 var tween: Tween:
 	set(t):

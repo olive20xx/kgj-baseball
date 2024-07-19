@@ -2,14 +2,12 @@ class_name PitcherCursor
 extends Node2D
 
 signal arrived(shape: CollisionShape2D)
-
-var strike_zone_rect: Rect2
-var strike_zone_pos: Vector2
+signal arrival_start
+signal pitching
 
 var accept_input := true
-var pitching := false
 
-@onready var arrival_rectangle: Rectangle2D = $Rectangle
+@onready var arrival_rect: Rectangle2D = $Rectangle
 @onready var move: Move = $Move
 @onready var pitcher_square: PitcherSquare = $Square
 @onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
@@ -26,13 +24,11 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("throw"):
-		print(strike_zone_rect)
 		pitch(100, 1)
 
 
-func pitch(drift_speed: float = 100.0, time_to_arrive: float = 2.0) -> void:
-	pitching = true
-	show_arrival_rect()
+func pitch(drift_speed: float, time_to_arrive: float) -> void:
+	pitching.emit()
 	#freeze
 	accept_input = false
 	# bring in square
@@ -43,7 +39,7 @@ func pitch(drift_speed: float = 100.0, time_to_arrive: float = 2.0) -> void:
 	crosshair.modulate.a = 1.0
 	await get_tree().create_timer(0.5).timeout
 	# narrow square
-	animate_arrival_rect()
+	arrival_start.emit()
 	crosshair.modulate.a = 0.0
 	var time_to_tight := 0.5
 	var tween := pitcher_square.tighten_it_up_there_boys(time_to_tight)
@@ -52,24 +48,11 @@ func pitch(drift_speed: float = 100.0, time_to_arrive: float = 2.0) -> void:
 	accept_input = true
 	var move_tween := move.set_limited_move(drift_speed, time_to_arrive)
 	await move_tween.finished
-	pitching = false
 	arrived.emit(collision_shape)
 
 
-func show_arrival_rect() -> void:
-	arrival_rectangle.rect = strike_zone_rect
-	arrival_rectangle.position = strike_zone_pos - position
-	arrival_rectangle.border_width = 2
-	arrival_rectangle.show()
-	arrival_rectangle.start_blink(0.2, 0.05, 0.05)
-
-
-func animate_arrival_rect() -> void:
-	arrival_rectangle.stop_blink()
-	arrival_rectangle.modulate.a = 0.6
-	# move and scale to pitcher_square
-
 func reset() -> void:
+	position = Vector2.ZERO
 	accept_input = true
 	crosshair_blink.reset()
 	move.reset()

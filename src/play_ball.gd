@@ -15,7 +15,7 @@ var reset_time := 2.0
 @onready var pitcher_cursor: PitcherCursor = %PitcherCursor
 @onready var strike_zone: StrikeZone = %StrikeZone
 @onready var batter_circle: BatterCircle = %BatterCircle
-@onready var hit_fairy: HitFairy = $HitFairy
+@onready var hit_fairy: HitFairy = %HitFairy
 @onready var label: Label = $UI/Panel/Label
 @onready var reset_timer: Timer = $ResetTimer
 
@@ -36,8 +36,5 @@ func _on_pitch_complete(pc: float) -> void:
 
 func reset() -> void:
 	hit_fairy.reset()
-	pitcher_cursor.position = center_pos
 	batter_circle.position = center_pos
 	pitcher_cursor.reset()
-	pitcher_cursor.strike_zone_rect = strike_zone.rect
-	pitcher_cursor.strike_zone_pos = strike_zone.position
