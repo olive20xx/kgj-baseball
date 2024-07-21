@@ -1,23 +1,28 @@
 class_name Rectangle2D
-extends Node2D
+extends Line2D
 
-var animating := false
+@export var top_left: Vector2:
+	get: return points[0]
+	set(v): points[0] = v
 
-@export var rect: Rect2
-@export var color: Color = Color.LAVENDER
-@export var filled := false
-@export var border_width := 4
+@export var top_right: Vector2:
+	get: return points[1]
+	set(v): points[1] = v
+
+@export var bot_right: Vector2:
+	get: return points[2]
+	set(v): points[2] = v
+		
+@export var bot_left: Vector2:
+	get: return points[3]
+	set(v): points[3] = v
 
 @onready var blink: Blink = $Blink
 
 
-func _draw() -> void:
-	draw_rect(rect, color, filled, border_width)
-
-
-func _process(_delta: float) -> void:
-	if animating:
-		queue_redraw()
+func _ready() -> void:
+	assert(points.size() == 4)
+	default_color = Color.LAVENDER
 
 
 func start_blink(blink_dur: float, invis_dur: float, vis_dur: float) -> void:
