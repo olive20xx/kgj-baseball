@@ -56,3 +56,7 @@ func reset() -> void:
 	crosshair_blink.reset()
 	move.reset()
 	pitcher_square.reset()
+
+
+func get_target_rect() -> Rect2:
+	return collision_shape.shape.get_rect()

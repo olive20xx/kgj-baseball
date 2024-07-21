@@ -19,8 +19,8 @@ extends Line2D
 
 var is_animating := false
 var elapsed_time := 0.0
-var anim_duration: float = 2.0
-var target_scale: Vector2 = Vector2(0.6, 0.2)
+var anim_duration: float = 1.0
+var target_scale: Vector2
 var target_position: Vector2
 
 @onready var blink: Blink = $Blink
@@ -29,7 +29,6 @@ var target_position: Vector2
 func _ready() -> void:
 	assert(points.size() == 4)
 	default_color = Color.LAVENDER
-	is_animating = true
 
 
 func _process(delta: float) -> void:
@@ -43,6 +42,7 @@ func _process(delta: float) -> void:
 	
 	if elapsed_time >= anim_duration:
 		is_animating = false
+		elapsed_time = 0.0
 
 
 func start_blink(blink_dur: float, invis_dur: float, vis_dur: float) -> void:
@@ -67,6 +67,17 @@ func get_animation_delta(current: Variant, target: Variant, delta: float) -> flo
 
 	return remaining * delta / time_remaining
 
+
+func set_target_scale(target_rect: Rect2) -> void:
+	var scale_x := target_rect.size.x / (top_right.x - top_left.x)
+	var scale_y := target_rect.size.y / (bot_left.y - top_left.y)
+	target_scale = Vector2(scale_x, scale_y)
+
+
+func reset() -> void:
+	modulate.a = 1.0
+	scale = Vector2.ONE
+	hide()
 
 # func animate_to(target: Rect2, offset: Vector2, time: float) -> void:
 # 	anim_duration = time

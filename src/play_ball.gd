@@ -38,3 +38,4 @@ func reset() -> void:
 	hit_fairy.reset()
 	batter_circle.position = center_pos
 	pitcher_cursor.reset()
+	strike_zone.reset()

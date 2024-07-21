@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://src/play_ball.gd" id="1_hvvun"]
 [ext_resource type="Texture2D" uid="uid://6p4k3sgjmrkc" path="res://assets/stadiumpixel.png" id="2_aobu0"]
-[ext_resource type="PackedScene" uid="uid://ds23careiux1c" path="res://src/strikezone/zone.tscn" id="3_xxn3o"]
-[ext_resource type="PackedScene" uid="uid://cl6l7iv1huj7p" path="res://src/cursors/pitcher/cursor.tscn" id="4_ryymv"]
+[ext_resource type="PackedScene" uid="uid://ds23careiux1c" path="res://src/strikezone/strikezone.tscn" id="3_xxn3o"]
+[ext_resource type="PackedScene" uid="uid://cl6l7iv1huj7p" path="res://src/cursors/pitcher/pitcher_cursor.tscn" id="4_ryymv"]
 [ext_resource type="PackedScene" uid="uid://d1tjdm2x8xsnh" path="res://src/cursors/batter_circle.tscn" id="5_xdh6u"]
 [ext_resource type="Script" path="res://src/hit_fairy.gd" id="6_6nynj"]
 
