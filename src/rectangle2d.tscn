@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://61phvxak5qfu" path="res://src/components/blink.tscn" id="2_vl6st"]
 
 [node name="Rectangle" type="Line2D"]
+position = Vector2(348, 187)
 points = PackedVector2Array(2.08165e-12, 2.08165e-12, 100, 2.08165e-12, 100, 100, 2.08165e-12, 100)
 closed = true
 width = 4.0
@@ -15,3 +16,9 @@ bot_right = Vector2(100, 100)
 bot_left = Vector2(2.08165e-12, 100)
 
 [node name="Blink" parent="." instance=ExtResource("2_vl6st")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 29.0
+offset_top = 131.0
+offset_right = 69.0
+offset_bottom = 154.0
