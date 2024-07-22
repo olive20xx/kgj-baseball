@@ -3,20 +3,30 @@ extends Node2D
 
 signal hit_percentage(value: int)
 
-# TODO: I think you just need the global position and shape.radius
+@export var half_swing_window_ms := 200 # ± milliseconds
+var swing_timing: int
+var pitch_timing: int:
+	set(v):
+		pitch_timing = v
+		print("pitch: " + str(pitch_timing))
+
 var batter_shape: CollisionShape2D  # circle
-# TODO: I think you just need the global position and Rect2 (or position + size)
 var pitcher_shape: CollisionShape2D # rect
 var overlap: PackedVector2Array = []
 
 
-func assign_rect(shape: CollisionShape2D) -> void:
+func pitch_arrived(shape: CollisionShape2D) -> void:
+	# pitch_timing set by parent because 500ms delay btwn cursor move + arrival rect
 	pitcher_shape = shape
+
 	if batter_shape: get_overlap()
 
-func assign_circ(shape: CollisionShape2D) -> void:
+func batter_swung(shape: CollisionShape2D) -> void:
+	swing_timing = Time.get_ticks_msec()
+	print("swing: " + str(swing_timing))
 	batter_shape = shape
 	position = batter_shape.global_position
+
 	if pitcher_shape: get_overlap()
 
 
@@ -62,6 +72,8 @@ func calculate_hit_percentage() -> int:
 func reset() -> void:
 	batter_shape = null
 	pitcher_shape = null
+	swing_timing = 0
+	pitch_timing = 0
 	overlap = []
 	queue_redraw()
 

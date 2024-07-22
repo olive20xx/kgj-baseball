@@ -4,6 +4,11 @@ extends Node2D
 # 2 - make the sequence of play
 # 3 - track swing timing
 # 4 - pitches with different X and Y drifts
+
+# refactor?
+#  - make pitcher cursor animate with _process instead of tween so they're in sync
+#     -> but then you lose the nice easing... unless you want to do it manually :/
+
 # post MVP
 # - pitcher fatigue
 # - strike zone fun
@@ -26,9 +31,10 @@ func _ready() -> void:
 	batter_circle.position = center_pos
 	reset()
 	pitcher_cursor.pitching.connect(func(): batter_circle.can_reset = false)
-	pitcher_cursor.arrived.connect(hit_fairy.assign_rect)
-	batter_circle.swung.connect(hit_fairy.assign_circ)
+	pitcher_cursor.arrived.connect(hit_fairy.pitch_arrived)
+	batter_circle.swung.connect(hit_fairy.batter_swung)
 	batter_circle.swinging.connect(func(is_swinging): pitcher_cursor.is_batter_swinging = is_swinging)
+	strike_zone.rectangle.animation_done.connect(func(ms): hit_fairy.pitch_timing = ms)
 	hit_fairy.hit_percentage.connect(_on_pitch_complete)
 
 

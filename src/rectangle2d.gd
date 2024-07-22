@@ -1,6 +1,8 @@
 class_name Rectangle2D
 extends Line2D
 
+signal animation_done(timestamp_ms: int)
+
 @export var top_left: Vector2:
 	get: return points[0]
 	set(v): points[0] = v
@@ -39,7 +41,8 @@ func _process(delta: float) -> void:
 		position = position.move_toward(target_position, position_delta)
 		scale = scale.move_toward(target_scale, scale_delta)
 	
-	if elapsed_time >= anim_duration:
+	if is_animating and elapsed_time >= anim_duration:
+		animation_done.emit(Time.get_ticks_msec())
 		is_animating = false
 		elapsed_time = 0.0
 
@@ -77,14 +80,3 @@ func reset() -> void:
 	modulate.a = 1.0
 	scale = Vector2.ONE
 	hide()
-
-# func animate_to(target: Rect2, offset: Vector2, time: float) -> void:
-# 	anim_duration = time
-# 	var t_topleft  := offset + target.position
-# 	var t_topright := offset + t_topleft + Vector2(target.size.x, 0)
-# 	var t_botright := offset + t_topleft + target.size
-# 	var t_botleft  := offset + t_topleft + Vector2(0, target.size.y)
-
-# 	target_points = [t_topleft, t_topright, t_botright, t_botleft]
-
-# 	is_animating = true

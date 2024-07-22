@@ -20,7 +20,7 @@ var pitches := {
 	},
 }
 
-var selected_pitch: Dictionary = pitches.curveball
+var selected_pitch: Dictionary = pitches.fastball
 
 var is_batter_swinging := false
 var can_pitch := false
@@ -31,7 +31,7 @@ var accept_input := false
 @onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
 @onready var crosshair: Sprite2D = $Crosshair
 @onready var crosshair_blink: Blink = $Crosshair/Blink
-
+	
 
 func _input(event: InputEvent) -> void:
 	if not accept_input:
