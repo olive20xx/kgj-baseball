@@ -1,9 +1,14 @@
 extends Node2D
 
 ## TODO:
+# 1 - change the background to be less confusing
 # 2 - make the sequence of play
 # 3 - track swing timing
 # 4 - pitches with different X and Y drifts
+
+# UNFORTUNATELY - i think i'm gonna need to add at least a baseball
+#                 because the UI alone is NOT clear to anyone who hasn't
+#                 played the original game
 
 # refactor?
 #  - make pitcher cursor animate with _process instead of tween so they're in sync
