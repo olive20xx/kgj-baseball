@@ -31,7 +31,8 @@ func fade_in(time: float) -> Tween:
 	return tween
 
 
-func tighten_it_up_there_boys(time: float) -> Tween:
+func tighten_it_up_there_boys() -> Tween:
+	var time := 0.5
 	var rads := deg_to_rad(45)
 	tween = create_tween().set_parallel()
 	tween.tween_property(top_left, "position", Vector2.from_angle(rads) * dist_to_tight, time).as_relative()

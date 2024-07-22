@@ -1,10 +1,9 @@
 extends Node2D
 
 ## TODO:
-# 1 - animate the strikezone square
-# 2 - track swing timing
-# 3 - make the sequence of play
-# 4 - create 4 different pitches
+# 2 - make the sequence of play
+# 3 - track swing timing
+# 4 - pitches with different X and Y drifts
 # 5 - strike zone fun
 #	   - random shapes
 #      - moving strike zone!

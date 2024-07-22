@@ -19,7 +19,7 @@ extends Line2D
 
 var is_animating := false
 var elapsed_time := 0.0
-var anim_duration: float = 1.0
+var anim_duration: float
 var target_scale: Vector2
 var target_position: Vector2
 
@@ -38,7 +38,6 @@ func _process(delta: float) -> void:
 		elapsed_time += delta
 		position = position.move_toward(target_position, position_delta)
 		scale = scale.move_toward(target_scale, scale_delta)
-		$Label.text = str(elapsed_time).pad_decimals(1) + "\n" + str(position) + "\n" + str(scale)
 	
 	if elapsed_time >= anim_duration:
 		is_animating = false

@@ -5,6 +5,23 @@ signal arrived(shape: CollisionShape2D)
 signal arrival_start(time: float)
 signal pitching
 
+var pitches := {
+	"fastball": {
+		"drift_speed": 100.0,
+		"time_to_arrive": 0.5,
+	},
+	"curveball": {
+		"drift_speed": 300.0,
+		"time_to_arrive": 1.0,
+	},
+	"changeup": {
+		"drift_speed": 300.0,
+		"time_to_arrive": 1.5,
+	},
+}
+
+var selected_pitch: Dictionary = pitches.curveball
+
 var accept_input := true
 
 @onready var move: Move = $Move
@@ -12,10 +29,6 @@ var accept_input := true
 @onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
 @onready var crosshair: Sprite2D = $Crosshair
 @onready var crosshair_blink: Blink = $Crosshair/Blink
-# A rectangle that starts as the strike zone, then zooms and moves in
-# until it matches the final position of the square
-# After pitching, it faintly grows back in the direction of the strike zone 
-# but fades before it gets there
 
 
 func _input(event: InputEvent) -> void:
@@ -23,10 +36,12 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("throw"):
-		pitch(100, 1)
+		pitch()
 
 
-func pitch(drift_speed: float, time_to_arrive: float) -> void:
+func pitch() -> void:
+	var drift_speed: float = selected_pitch.drift_speed
+	var time_to_arrive: float = selected_pitch.time_to_arrive
 	pitching.emit()
 	#freeze
 	accept_input = false
@@ -40,8 +55,7 @@ func pitch(drift_speed: float, time_to_arrive: float) -> void:
 	# narrow square
 	arrival_start.emit(time_to_arrive)
 	crosshair.modulate.a = 0.0
-	var time_to_tight := 0.5
-	var tween := pitcher_square.tighten_it_up_there_boys(time_to_tight)
+	var tween := pitcher_square.tighten_it_up_there_boys()
 	await tween.finished
 	# allow limited movement after the throw
 	accept_input = true
