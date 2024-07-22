@@ -35,7 +35,6 @@ unique_name_in_owner = true
 [node name="BatterCircle" parent="." instance=ExtResource("5_xdh6u")]
 unique_name_in_owner = true
 position = Vector2(300, 445)
-size = 3
 
 [node name="HitFairy" type="Node2D" parent="."]
 unique_name_in_owner = true

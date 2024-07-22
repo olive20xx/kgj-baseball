@@ -1,9 +1,9 @@
 class_name PitcherCursor
 extends Node2D
 
-signal arrived(shape: CollisionShape2D)
-signal arrival_start(time: float)
 signal pitching
+signal arrival_start(time: float)
+signal arrived(shape: CollisionShape2D)
 
 var pitches := {
 	"fastball": {
@@ -22,7 +22,9 @@ var pitches := {
 
 var selected_pitch: Dictionary = pitches.curveball
 
-var accept_input := true
+var is_batter_swinging := false
+var can_pitch := false
+var accept_input := false
 
 @onready var move: Move = $Move
 @onready var pitcher_square: PitcherSquare = $Square
@@ -36,14 +38,17 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("throw"):
-		pitch()
+		if can_pitch and selected_pitch and not is_batter_swinging:
+			pitch()
 
 
 func pitch() -> void:
 	var drift_speed: float = selected_pitch.drift_speed
 	var time_to_arrive: float = selected_pitch.time_to_arrive
+	
+	# START PITCH: freeze pitch position
 	pitching.emit()
-	#freeze
+	can_pitch = false
 	accept_input = false
 	# bring in square
 	var fade_anim := pitcher_square.fade_in(0.2)
@@ -52,7 +57,7 @@ func pitch() -> void:
 	crosshair_blink.stop()
 	crosshair.modulate.a = 1.0
 	await get_tree().create_timer(0.5).timeout
-	# narrow square
+	# START ARRIVAL SEQUENCE - hide crosshair, narrow square
 	arrival_start.emit(time_to_arrive)
 	crosshair.modulate.a = 0.0
 	var tween := pitcher_square.tighten_it_up_there_boys()
@@ -61,15 +66,20 @@ func pitch() -> void:
 	accept_input = true
 	var move_tween := move.set_limited_move(drift_speed, time_to_arrive)
 	await move_tween.finished
+	# PITCH ARRIVED
 	arrived.emit(collision_shape)
 
 
-func reset() -> void:
-	position = Vector2.ZERO
-	accept_input = true
+func reset(time: float) -> void:
+	var tween := create_tween()
+	tween.tween_property(self, "position", Vector2.ZERO, time)
+	tween.play()
 	crosshair_blink.reset()
 	move.reset()
 	pitcher_square.reset()
+	await tween.finished
+	can_pitch = true
+	accept_input = true
 
 
 func get_target_rect() -> Rect2:

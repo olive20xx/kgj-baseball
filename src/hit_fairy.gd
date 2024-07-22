@@ -4,36 +4,36 @@ extends Node2D
 signal hit_percentage(value: int)
 
 # TODO: I think you just need the global position and shape.radius
-var circ_shape: CollisionShape2D
+var batter_shape: CollisionShape2D  # circle
 # TODO: I think you just need the global position and Rect2 (or position + size)
-var rect_shape: CollisionShape2D
+var pitcher_shape: CollisionShape2D # rect
 var overlap: PackedVector2Array = []
 
 
 func assign_rect(shape: CollisionShape2D) -> void:
-	rect_shape = shape
-	if circ_shape: get_overlap()
+	pitcher_shape = shape
+	if batter_shape: get_overlap()
 
 func assign_circ(shape: CollisionShape2D) -> void:
-	circ_shape = shape
-	position = circ_shape.global_position
-	if rect_shape: get_overlap()
+	batter_shape = shape
+	position = batter_shape.global_position
+	if pitcher_shape: get_overlap()
 
 
 func get_overlap() -> void:
-	if not circ_shape or not rect_shape:
+	if not batter_shape or not pitcher_shape:
 		print("hit fairy missing a shape")
-		print('circ: ', !!circ_shape, ' | rect: ', !!rect_shape)
+		print('circ: ', !!batter_shape, ' | rect: ', !!pitcher_shape)
 		return
 
 	# GlobalPosition (from center, absolute) + Rect2D.position (top-left, relative)
-	var rect_pos := rect_shape.global_position + rect_shape.shape.get_rect().position
+	var rect_pos := pitcher_shape.global_position + pitcher_shape.shape.get_rect().position
 	# Since this node re-positions to the center of the Batter Circle, we can get
 	# dist by using our GlobalPosition
 	var dist_to_rect := rect_pos - global_position 
 	
-	var rect_polygon := make_rect_polygon(rect_shape.shape.get_rect(), dist_to_rect) 
-	var circ_polygon := make_circle_polygon(circ_shape.shape.radius, 12)
+	var rect_polygon := make_rect_polygon(pitcher_shape.shape.get_rect(), dist_to_rect) 
+	var circ_polygon := make_circle_polygon(batter_shape.shape.radius, 12)
 
 	var overlap_result := Geometry2D.intersect_polygons(rect_polygon, circ_polygon)
 	if not overlap_result.is_empty():
@@ -46,8 +46,8 @@ func get_overlap() -> void:
 
 func calculate_hit_percentage() -> int:
 	var total: float
-	var rect_area := rect_shape.shape.get_rect().get_area()
-	var circ_area := PI * pow(circ_shape.shape.radius, 2)
+	var rect_area := pitcher_shape.shape.get_rect().get_area()
+	var circ_area := PI * pow(batter_shape.shape.radius, 2)
 	
 	if rect_area < circ_area:
 		total = rect_area
@@ -60,8 +60,8 @@ func calculate_hit_percentage() -> int:
 
 
 func reset() -> void:
-	circ_shape = null
-	rect_shape = null
+	batter_shape = null
+	pitcher_shape = null
 	overlap = []
 	queue_redraw()
 
