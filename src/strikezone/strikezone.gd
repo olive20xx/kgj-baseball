@@ -19,9 +19,6 @@ var bot_left: Vector2:
 @onready var batter: Batter = $Batter
 @onready var rectangle: Rectangle2D = $Rectangle
 
-var elapsed_time := 0.0
-var arrival_time: float
-
 
 func _ready() -> void:
 	if pitcher_cursor:
@@ -32,13 +29,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if rectangle.is_animating:
 		rectangle.target_position = pitcher_cursor.position
-	# if moving:
-	# 	elapsed_time += delta
-	# 	var t := clampf(elapsed_time / arrival_time, 0.0, 1.0)
-	# 	#TODO: add collision shape offset
-	# 	rectangle.position = rectangle.position.lerp(pitcher_cursor.position, t)
-	# if elapsed_time >= arrival_time:
-	# 	moving = false
 
 
 func show_arrival_rect() -> void:
@@ -53,7 +43,7 @@ func show_arrival_rect() -> void:
 
 
 func animate_arrival_rect(time: float) -> void:
-	arrival_time = time
+	rectangle.anim_duration = time
 	rectangle.stop_blink()
 	rectangle.modulate.a = 0.6
 	# move and scale to pitcher_square
