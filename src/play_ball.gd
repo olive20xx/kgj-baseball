@@ -36,12 +36,18 @@ func _ready() -> void:
 	batter_circle.swinging.connect(func(is_swinging): pitcher_cursor.is_batter_swinging = is_swinging)
 	strike_zone.rectangle.animation_done.connect(func(ms): hit_fairy.pitch_timing = ms)
 	hit_fairy.hit_percentage.connect(_on_pitch_complete)
+	hit_fairy.miss.connect(_on_miss)
 
 
 func _on_pitch_complete(pc: float) -> void:
 	label.text = "HIT: " + str(pc) + "%"
 	reset_timer.start(reset_time)
 	await reset_timer.timeout
+	reset()
+
+
+func _on_miss() -> void:
+	label.text = "MISS"
 	reset()
 
 

@@ -2,6 +2,7 @@ class_name HitFairy
 extends Node2D
 
 signal hit_percentage(value: int)
+signal miss
 
 @export var half_swing_window_ms := 200 # ± milliseconds
 var swing_timing: int
@@ -15,11 +16,6 @@ var pitcher_shape: CollisionShape2D # rect
 var overlap: PackedVector2Array = []
 
 
-func pitch_arrived(shape: CollisionShape2D) -> void:
-	# pitch_timing set by parent because 500ms delay btwn cursor move + arrival rect
-	pitcher_shape = shape
-
-	if batter_shape: get_overlap()
 
 func batter_swung(shape: CollisionShape2D) -> void:
 	swing_timing = Time.get_ticks_msec()
@@ -27,7 +23,15 @@ func batter_swung(shape: CollisionShape2D) -> void:
 	batter_shape = shape
 	position = batter_shape.global_position
 
-	if pitcher_shape: get_overlap()
+
+# called ~500ms after 'pitch_timing', should be safe to initiate the hit calc here
+func pitch_arrived(shape: CollisionShape2D) -> void:
+	# pitch_timing set by parent because 500ms delay btwn cursor move + arrival rect
+	pitcher_shape = shape
+
+	if batter_shape and is_swing_timely():
+		get_overlap()
+	else: miss.emit()
 
 
 func get_overlap() -> void:
@@ -67,6 +71,11 @@ func calculate_hit_percentage() -> int:
 	var hit := calculate_area(overlap)
 	
 	return roundi(hit / total * 100)
+
+
+func is_swing_timely() -> bool:
+	print(abs(pitch_timing - swing_timing))
+	return abs(pitch_timing - swing_timing) <= half_swing_window_ms
 
 
 func reset() -> void:
