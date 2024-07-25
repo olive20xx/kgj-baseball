@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://djqse2gmeqjnq"]
 
 [ext_resource type="Script" path="res://src/play_ball.gd" id="1_hvvun"]
-[ext_resource type="Texture2D" uid="uid://6p4k3sgjmrkc" path="res://assets/stadiumpixel.png" id="2_aobu0"]
+[ext_resource type="Texture2D" uid="uid://dpjoa3tl7084g" path="res://assets/background/kgj-neutral.jpg" id="2_dakrr"]
 [ext_resource type="PackedScene" uid="uid://ds23careiux1c" path="res://src/strikezone/strikezone.tscn" id="3_xxn3o"]
 [ext_resource type="PackedScene" uid="uid://cl6l7iv1huj7p" path="res://src/cursors/pitcher/pitcher_cursor.tscn" id="4_ryymv"]
 [ext_resource type="PackedScene" uid="uid://d1tjdm2x8xsnh" path="res://src/cursors/batter_circle.tscn" id="5_xdh6u"]
@@ -10,15 +10,24 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctv8n"]
 bg_color = Color(0.555112, 0.00766065, 0.528903, 1)
 
-[node name="PlayBall" type="Node2D"]
+[node name="PlayBall" type="Node"]
 script = ExtResource("1_hvvun")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.47451)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_dakrr")
+expand_mode = 3
 
 [node name="ResetTimer" type="Timer" parent="."]
 
-[node name="Background" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.4)
-size_flags_horizontal = 4
-texture = ExtResource("2_aobu0")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="CenterMarker" type="Marker2D" parent="."]
 position = Vector2(640, 470)
@@ -47,9 +56,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -92.0
-offset_top = 176.0
+offset_top = 99.0
 offset_right = 90.0
-offset_bottom = 227.0
+offset_bottom = 150.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ctv8n")
 

@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 ## TODO:
 # 1 - change the background to be less confusing

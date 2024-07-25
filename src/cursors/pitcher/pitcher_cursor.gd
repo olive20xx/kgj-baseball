@@ -20,7 +20,7 @@ var pitches := {
 	},
 }
 
-var selected_pitch: Dictionary = pitches.fastball
+var selected_pitch: Dictionary = pitches.curveball
 
 var is_batter_swinging := false
 var can_pitch := false

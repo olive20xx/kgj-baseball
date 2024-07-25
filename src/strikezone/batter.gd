@@ -1,8 +1,6 @@
 class_name Batter
 extends Node2D
 
-var _distance: float
-
 var top: float:
 	get: return chest.position.y
 var bot: float:
