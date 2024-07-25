@@ -1,20 +1,15 @@
 extends Node
 
 ## TODO:
-# 1 - change the background to be less confusing
-# 2 - make the sequence of play
-# 3 - track swing timing
-# 4 - pitches with different X and Y drifts
-
-# UNFORTUNATELY - i think i'm gonna need to add at least a baseball
-#                 because the UI alone is NOT clear to anyone who hasn't
-#                 played the original game
-
-# refactor?
-#  - make pitcher cursor animate with _process instead of tween so they're in sync
-#     -> but then you lose the nice easing... unless you want to do it manually :/
+# 0 - fix the strike zone
+# 1 - balls and strikes
+# 2 - track score
+# 3 - make tutorial images
+# 4 - baseball font
 
 # post MVP
+# - pitches with different X and Y drifts
+# - add an actual baseball?? (for clarity)
 # - pitcher fatigue
 # - strike zone fun
 #	   - random shapes
@@ -29,7 +24,6 @@ var reset_time := 2.0
 @onready var hit_fairy: HitFairy = %HitFairy
 @onready var label: Label = $UI/Panel/Label
 @onready var reset_timer: Timer = $ResetTimer
-
 
 
 func _ready() -> void:
